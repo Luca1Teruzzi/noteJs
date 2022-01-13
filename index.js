@@ -24,9 +24,14 @@ apiServer.get("/nome",(request,response)=>{
 
 apiServer.get("/mioNome",(request,response)=>{
     console.log("richiesta get su mio nome", request);
-    response.send("Ciao, il mio nome è: "+request.query.nome);
+    response.setHeader("Content-Type","application/json");
+    response.send(JSON.stringify({"nome":request.query.nome}));
 });
-
+apiServer.post("/mioNome",(request,response)=>{
+    console.log("richiesta get su mio nome", request, request.socket.remoteAddress);
+    response.setHeader("Content-Type","application/json");
+    response.send(JSON.stringify({"nome":request.body.nome}));
+});
 apiServer.get("/somma",(request,response)=>{
     console.log("richiesta get su somma", request);
     response.send("La somma è: "+(parseInt(request.query.a)+parseInt(request.query.b)));
